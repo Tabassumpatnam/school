@@ -13,11 +13,12 @@ def create_student_view(request):
     if request.method=="POST":
         
         student_form = StudentForm(request.POST)
-        if student_form is valid():
+        if student_form.is_valid():
             student_form.save()
-        
+        else:
+            return render(request, "student/create_student.html", {"form": student_form})
     student_form = StudentForm()
-    return render(request, "student/create_student.html",{"form": student_form})
+    return render(request, "student/create_student.html", {"form": student_form })
 
 def update_student_view(request,id):
     st=Student.objects.get(pk=id)
